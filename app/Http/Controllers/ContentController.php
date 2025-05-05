@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Content;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ContentController extends Controller
 {
@@ -20,7 +22,8 @@ class ContentController extends Controller
      */
     public function create()
     {
-        dump(Content::all());
+        $categories = Category::all();
+        return view('contents.create', compact('categories'));
     }
 
     /**
@@ -28,13 +31,30 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        $content = Content::query()->create([
-            'title'       => $request->get('title'),
-            'description' => $request->input('description'),
-            'url'         => $request->query('url'),
-            'category_id' => $request->category_id,
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'url' => 'nullable|url',
+            'category_id' => 'required|exists:categories,id',
+            'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar|max:10240',
         ]);
-        dd($content);
+
+        $path = null;
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            $file = $request->file('file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('content_files', $fileName, 'public');
+        }
+
+        $content = Content::create([
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'url' => $validated['url'] ?? null,
+            'category_id' => $validated['category_id'],
+            'path_file' => $path,
+        ]);
+
+        return redirect()->route('contents.show', $content)->with('success', 'Content created successfully');
     }
 
     /**
