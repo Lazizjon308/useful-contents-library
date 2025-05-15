@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
-use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index(){}
+    public function index(){
+        $categories = Category::all();
+        return view('profile.categories.index', compact('categories'));
+    }
     public function create(){}
     public function store(Request $request)
     {

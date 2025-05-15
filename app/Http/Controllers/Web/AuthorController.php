@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
 use App\Models\Author;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = Author::all();
-        return view('welcome', ['authors' => $authors]);
+        return view('profile.authors.index', compact('authors'));
     }
 
     /**

@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AuthorSeeder::class,  // Authors have no dependencies
             GenreSeeder::class,   // Genres have no dependencies
-            CategorySeeder::class, // Categories have no dependencies
+            CategorySeeder::class, // categories have no dependencies
             ContentSeeder::class,  // Content depends on categories and indirectly on authors
         ]);
     }
