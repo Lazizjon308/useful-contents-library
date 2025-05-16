@@ -5,10 +5,11 @@ use App\Http\Controllers\Web\AuthorController;
 use App\Http\Controllers\Web\CategoryController;
 use App\Http\Controllers\Web\ContentController;
 use App\Http\Controllers\Web\GenreController;
+use App\Http\Controllers\Web\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/dashboard', function () {
@@ -16,9 +17,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // User management routes
+    Route::resource('users', UserController::class);
 });
 
 // Content-related routes group

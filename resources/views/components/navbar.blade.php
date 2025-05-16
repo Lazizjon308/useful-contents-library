@@ -8,19 +8,19 @@
             <ul class="navbar-nav">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="author">Author</a>
+                    <a class="nav-link" href="/author">Author</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="genres">Genres</a>
+                    <a class="nav-link" href="/genres">Genres</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="categories">Categories</a>
+                    <a class="nav-link" href="/categories">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contents">Contents</a>
+                    <a class="nav-link" href="/contents">Contents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="users">Users</a>
+                    <a class="nav-link" href="/users">Users</a>
                 </li>
             </ul>
         </div>

@@ -12,17 +12,34 @@ class CategoryController extends Controller
         $categories = Category::all();
         return view('profile.categories.index', compact('categories'));
     }
-    public function create(){}
+    public function create(){
+        return view('categories.create');
+    }
     public function store(Request $request)
     {
-        dd($request->all());
+        Category::create($request->validated());
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Category created successfully.');
     }
 
-    public function show(Category $category){}
+    public function show(Category $category){
+        return view('categories.show', compact('category'));
+    }
 
-    public function edit(Category $category){}
+    public function edit(Category $category){
+        return view('categories.edit', compact('category'));
+    }
 
-    public function update(UpdateCategoryRequest $request, Category $category){}
+    public function update(UpdateCategoryRequest $request, Category $category){
+        $category->update($request->validated());
+    }
 
-    public function destroy(Category $category){}
+    public function destroy(Category $category){
+        $category->delete();
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Category deleted successfully.');
+    }
 }

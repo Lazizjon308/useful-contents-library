@@ -8,6 +8,7 @@ class HomeController extends Controller
 {
     public function home()
     {
-        return view('home');
+        $contents = Content::with('authors')->latest()->get();
+        return view('home', compact('contents'));
     }
 }
