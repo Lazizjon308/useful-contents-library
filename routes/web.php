@@ -55,6 +55,9 @@ Route::middleware('auth')->prefix('content')->group(function () {
     Route::post('/genres', [GenreController::class, 'store'])->name('genres.store');
     Route::put('/genres/{genre}', [GenreController::class, 'update'])->name('genres.update');
     Route::delete('/genres/{genre}', [GenreController::class, 'destroy'])->name('genres.destroy');
+
+    //Users routes
+    Route::get('/users',[UserController::class,'users'])->name('users.index');
 });
 
 // Also provide non-prefixed routes for backward compatibility

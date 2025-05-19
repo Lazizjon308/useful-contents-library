@@ -63,7 +63,7 @@
             @foreach($authors as $author)
                 <div class="author-card">
                     <h5>{{ $author->name }}</h5>
-                    <a href="{{ route('authors.show', $author->id) }}" class="btn-show">Show</a>
+                    <a href="{{ route('authors', $author->id) }}" class="btn-show">Show</a>
                 </div>
             @endforeach
         </div>
