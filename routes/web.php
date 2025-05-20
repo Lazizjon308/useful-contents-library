@@ -41,13 +41,16 @@ Route::middleware('auth')->prefix('content')->group(function () {
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
 
     // Contents routes
-    Route::get('/contents', [ContentController::class, 'contents'])->name('contents.index');
+    Route::get('/contents', [ContentController::class, 'index'])->name('contents.index');
     Route::get('/contents/{content}', [ContentController::class, 'show'])->name('contents.show');
     Route::post('/contents', [ContentController::class, 'store'])->name('contents.store');
     Route::put('/contents/{content}', [ContentController::class, 'update'])->name('contents.update');
     Route::delete('/contents/{content}', [ContentController::class, 'destroy'])->name('contents.destroy');
+    Route::get('/contents/create', [ContentController::class, 'create'])->name('contents.create');
+    Route::get('/contents/{content}/edit', [ContentController::class, 'edit'])->name('contents.edit');
 
     // Genres routes
     Route::get('/genres', [GenreController::class, 'index'])->name('genres.index');
@@ -55,14 +58,18 @@ Route::middleware('auth')->prefix('content')->group(function () {
     Route::post('/genres', [GenreController::class, 'store'])->name('genres.store');
     Route::put('/genres/{genre}', [GenreController::class, 'update'])->name('genres.update');
     Route::delete('/genres/{genre}', [GenreController::class, 'destroy'])->name('genres.destroy');
+    Route::get('/genres/create', [GenreController::class, 'create'])->name('genres.create');
+    Route::get('/genres/{genre}/edit', [GenreController::class, 'edit'])->name('genres.edit');
 
     //Users routes
-    Route::get('/users',[UserController::class,'users'])->name('users.index');
+    Route::get('/users',[UserController::class,'index'])->name('content.users.index');
 });
 
 // Also provide non-prefixed routes for backward compatibility
-Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index.legacy');
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index.legacy');
-Route::get('/contents', [ContentController::class, 'index'])->name('contents.index.legacy');
-Route::get('/genres', [GenreController::class, 'index'])->name('genres.index.legacy');
+Route::middleware('auth')->group(function () {
+    Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index.legacy');
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index.legacy');
+    Route::get('/contents', [ContentController::class, 'index'])->name('contents.index.legacy');
+    Route::get('/genres', [GenreController::class, 'index'])->name('genres.index.legacy');
+});
 require __DIR__.'/auth.php';

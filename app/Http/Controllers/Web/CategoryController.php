@@ -13,7 +13,7 @@ class CategoryController extends Controller
         return view('profile.categories.index', compact('categories'));
     }
     public function create(){
-        return view('categories.create');
+        return view('profile.categories.create');
     }
     public function store(Request $request)
     {
